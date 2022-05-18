@@ -1,4 +1,4 @@
-package pl.org.akai.iloveboardgames.util.sharedPrefs
+package data.preferences
 
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.SerializationException

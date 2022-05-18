@@ -1,4 +1,4 @@
-package navigation
+package pl.org.akai.iloveboardgames.navigation
 
 object Routes {
     const val ONBOARDING = "onboarding"

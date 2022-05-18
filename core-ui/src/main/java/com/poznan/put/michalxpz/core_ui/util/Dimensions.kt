@@ -1,4 +1,4 @@
-package com.poznan.put.michalxpz.core_ui
+package com.poznan.put.michalxpz.core_ui.util
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp

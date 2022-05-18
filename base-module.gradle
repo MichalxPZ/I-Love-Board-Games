@@ -1,3 +1,6 @@
+import pl.org.akai.buildsrc.ProtoDataStore
+import pl.org.akai.buildsrc.Serialization
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -35,6 +38,19 @@ android {
 dependencies {
     kapt DaggerHilt.hiltCompiler
     implementation DaggerHilt.hiltAndroid
+
+    implementation ProtoDataStore.protoDataStore
+    implementation Serialization.serialization
+    implementation ProtoDataStore.preferenceDataStore
+
+    implementation(pl.org.akai.buildsrc.Retrofit.okHttp)
+    implementation(pl.org.akai.buildsrc.Retrofit.retrofit)
+    implementation(pl.org.akai.buildsrc.Retrofit.okHttpLoggingInterceptor)
+    implementation(pl.org.akai.buildsrc.Retrofit.moshiConverter)
+
+    kapt(pl.org.akai.buildsrc.Room.roomCompiler)
+    implementation(pl.org.akai.buildsrc.Room.roomKtx)
+    implementation(pl.org.akai.buildsrc.Room.roomRuntime)
 
     testImplementation Testing.junit4
     testImplementation Testing.junitAndroidExt

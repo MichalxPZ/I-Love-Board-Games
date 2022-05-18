@@ -2,8 +2,8 @@ package pl.org.akai.iloveboardgames
 
 import android.content.Context
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,11 +18,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
-import navigation.Routes
+import pl.org.akai.iloveboardgames.navigation.Routes
 import pl.org.akai.game_list_presentation.game_list_screen.GamesScreen
 import pl.org.akai.iloveboardgames.ui.theme.ILoveBoardGamesTheme
-import pl.org.akai.iloveboardgames.util.sharedPrefs.ApplicationSettingSerializer
-import pl.org.akai.iloveboardgames.util.sharedPrefs.ApplicationSettings
+import data.preferences.ApplicationSettingSerializer
+import data.preferences.ApplicationSettings
 import pl.org.akai.onboarding_presentation.onboarding_screen.OnboardingScreen
 import pl.org.akai.profile_screen_presentation.profile_screen.ProfileScreen
 import pl.org.akai.ranking_history_presentation.ranking_history_screen.RankingHistoryScreen
@@ -31,9 +31,10 @@ import pl.org.akai.synchronization_presentation.synchronization_screen.Synchroni
 val Context.dataStore: DataStore<ApplicationSettings> by dataStore(fileName = "settings", serializer = ApplicationSettingSerializer)
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContent {
             ILoveBoardGamesTheme {
                 // A surface container using the 'background' color from the theme
@@ -45,7 +46,9 @@ class MainActivity : ComponentActivity() {
                     val scope = rememberCoroutineScope()
                     NavHost(navController = navController, startDestination = startDestination) {
                         composable(Routes.ONBOARDING) {
-                            OnboardingScreen()
+                            OnboardingScreen(
+                                onButtonClick = {}
+                            )
                         }
 
                         composable(Routes.PROFILE) {

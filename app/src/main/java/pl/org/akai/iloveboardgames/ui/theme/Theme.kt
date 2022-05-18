@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
-import com.poznan.put.michalxpz.core_ui.Dimensions
-import com.poznan.put.michalxpz.core_ui.LocalSpacing
+import com.poznan.put.michalxpz.core_ui.util.Dimensions
+import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
 
 private val DarkColorScheme = darkColorScheme(
     primary = Sand60,

@@ -1,4 +1,4 @@
-package pl.org.akai.iloveboardgames.util.sharedPrefs
+package data.preferences
 
 import kotlinx.serialization.Serializable
 

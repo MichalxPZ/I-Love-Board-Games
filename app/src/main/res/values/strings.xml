@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">I Love Board Games</string>
+    <string name="onboarding_message">Welcome!\nPlease tell us your name</string>
 </resources>

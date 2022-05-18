@@ -92,6 +92,19 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
+
+    implementation(pl.org.akai.buildsrc.Coil.coilCompose)
+
+    implementation(pl.org.akai.buildsrc.Retrofit.okHttp)
+    implementation(pl.org.akai.buildsrc.Retrofit.retrofit)
+    implementation(pl.org.akai.buildsrc.Retrofit.okHttpLoggingInterceptor)
+    implementation(pl.org.akai.buildsrc.Retrofit.moshiConverter)
+
+    kapt(pl.org.akai.buildsrc.Room.roomCompiler)
+    implementation(pl.org.akai.buildsrc.Room.roomKtx)
+    implementation(pl.org.akai.buildsrc.Room.roomRuntime)
+
+
     testImplementation(Testing.junit4)
     testImplementation(Testing.junitAndroidExt)
     testImplementation(Testing.truth)
