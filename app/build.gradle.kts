@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 
@@ -58,6 +59,10 @@ dependencies {
     implementation(Compose.navigation)
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
+
+    implementation(pl.org.akai.buildsrc.ProtoDataStore.protoDataStore)
+    implementation(pl.org.akai.buildsrc.ProtoDataStore.preferenceDataStore)
+    implementation(pl.org.akai.buildsrc.Serialization.serialization)
 
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)
