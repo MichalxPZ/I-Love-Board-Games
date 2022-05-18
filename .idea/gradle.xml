@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core-ui" />
+            <option value="$PROJECT_DIR$/game_list" />
+            <option value="$PROJECT_DIR$/game_list/game_list_data" />
+            <option value="$PROJECT_DIR$/game_list/game_list_domain" />
+            <option value="$PROJECT_DIR$/game_list/game_list_presentation" />
+            <option value="$PROJECT_DIR$/onboarding" />
+            <option value="$PROJECT_DIR$/onboarding/onboarding_domain" />
+            <option value="$PROJECT_DIR$/onboarding/onboarding_presentation" />
+            <option value="$PROJECT_DIR$/profile_screen" />
+            <option value="$PROJECT_DIR$/profile_screen/profile_screen_data" />
+            <option value="$PROJECT_DIR$/profile_screen/profile_screen_domain" />
+            <option value="$PROJECT_DIR$/profile_screen/profile_screen_presentation" />
+            <option value="$PROJECT_DIR$/ranking_history" />
+            <option value="$PROJECT_DIR$/ranking_history/ranking_history_data" />
+            <option value="$PROJECT_DIR$/ranking_history/ranking_history_domain" />
+            <option value="$PROJECT_DIR$/ranking_history/ranking_history_presentation" />
+            <option value="$PROJECT_DIR$/synchronization" />
+            <option value="$PROJECT_DIR$/synchronization/synchronization_data" />
+            <option value="$PROJECT_DIR$/synchronization/synchronization_domain" />
+            <option value="$PROJECT_DIR$/synchronization/synchronization_presentation" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

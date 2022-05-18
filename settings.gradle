@@ -1,0 +1,37 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "I Love Board Games"
+include ':app'
+include ':core'
+include ':core-ui'
+include ':onboarding'
+include ':onboarding:onboarding_presentation'
+include ':onboarding:onboarding_domain'
+include ':profile_screen'
+include ':profile_screen:profile_screen_data'
+include ':profile_screen:profile_screen_domain'
+include ':profile_screen:profile_screen_presentation'
+include ':game_list'
+include ':game_list:game_list_data'
+include ':game_list:game_list_domain'
+include ':game_list:game_list_presentation'
+include ':synchronization'
+include ':synchronization:synchronization_data'
+include ':synchronization:synchronization_domain'
+include ':synchronization:synchronization_presentation'
+include ':ranking_history'
+include ':ranking_history:ranking_history_data'
+include ':ranking_history:ranking_history_domain'
+include ':ranking_history:ranking_history_presentation'
