@@ -7,11 +7,5 @@ apply {
 }
 
 dependencies {
-    "implementation"(pl.org.akai.buildsrc.ProtoDataStore.protoDataStore)
-    "implementation"(pl.org.akai.buildsrc.ProtoDataStore.preferenceDataStore)
-    "implementation"(pl.org.akai.buildsrc.Serialization.serialization)
-
-    "implementation"(pl.org.akai.buildsrc.ProtoDataStore.protoDataStore)
-    "implementation"(pl.org.akai.buildsrc.ProtoDataStore.preferenceDataStore)
     "implementation"(pl.org.akai.buildsrc.Serialization.serialization)
 }

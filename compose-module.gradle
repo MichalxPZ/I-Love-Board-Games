@@ -1,5 +1,4 @@
 import pl.org.akai.buildsrc.Coil
-import pl.org.akai.buildsrc.ProtoDataStore
 import pl.org.akai.buildsrc.Serialization
 
 apply plugin: 'com.android.library'
@@ -53,9 +52,7 @@ dependencies {
     implementation Compose.viewModelCompose
     implementation Compose.activityCompose
 
-    implementation ProtoDataStore.protoDataStore
     implementation Serialization.serialization
-    implementation ProtoDataStore.preferenceDataStore
 
     implementation(Coil.coilCompose)
 

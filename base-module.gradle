@@ -1,4 +1,3 @@
-import pl.org.akai.buildsrc.ProtoDataStore
 import pl.org.akai.buildsrc.Serialization
 
 apply plugin: 'com.android.library'
@@ -39,9 +38,7 @@ dependencies {
     kapt DaggerHilt.hiltCompiler
     implementation DaggerHilt.hiltAndroid
 
-    implementation ProtoDataStore.protoDataStore
     implementation Serialization.serialization
-    implementation ProtoDataStore.preferenceDataStore
 
     implementation(pl.org.akai.buildsrc.Retrofit.okHttp)
     implementation(pl.org.akai.buildsrc.Retrofit.retrofit)

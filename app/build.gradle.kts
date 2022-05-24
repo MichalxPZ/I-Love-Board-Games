@@ -64,8 +64,6 @@ dependencies {
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
 
-    implementation(pl.org.akai.buildsrc.ProtoDataStore.protoDataStore)
-    implementation(pl.org.akai.buildsrc.ProtoDataStore.preferenceDataStore)
     implementation(pl.org.akai.buildsrc.Serialization.serialization)
 
     implementation(DaggerHilt.hiltAndroid)
