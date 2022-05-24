@@ -47,6 +47,10 @@ android {
         exclude("**/attach_hotspot_windows.dll")
         exclude("META-INF/licenses/ASM")
     }
+
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
 }
 
 dependencies {
