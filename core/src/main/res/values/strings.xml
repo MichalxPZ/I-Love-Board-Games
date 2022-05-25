@@ -3,4 +3,6 @@
     <string name="onboarding_message">Welcome!\nPlease tell us your name</string>
     <string name="Continue">Continue</string>
     <string name="whats_your_name">What\'s your name?</string>
+    <string name="Your_Games">Your Games</string>
+    <string name="Your_Extensions">Your Extensions</string>
 </resources>

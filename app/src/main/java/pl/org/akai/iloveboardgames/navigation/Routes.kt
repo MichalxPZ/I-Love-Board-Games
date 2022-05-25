@@ -2,8 +2,8 @@ package pl.org.akai.iloveboardgames.navigation
 
 object Routes {
     const val ONBOARDING = "onboarding"
-    const val PROFILE = "profile"
-    const val GAME_SCREEN = "game_screen"
-    const val SYNCHORNIZATION = "synchronization"
-    const val RANKING_HISTORY = "history"
+    const val PROFILE = "Profile"
+    const val GAME_SCREEN = "Game Screen"
+    const val SYNCHORNIZATION = "Synchronization"
+    const val RANKING_HISTORY = "History"
 }
