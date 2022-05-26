@@ -76,20 +76,24 @@ fun GameItemEntry(
 
             Spacer(modifier = Modifier.height(spacing.extraSmall))
 
-            Text(
-                text = gameModel.year.toString(),
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.Gray
-            )
+
+            if (gameModel.year != 0) {
+                Text(
+                    text = gameModel.year.toString(),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Gray
+                )
+            }
 
             Spacer(modifier = Modifier.height(spacing.small))
 
             if (gameModel.type == GameType.GAME) {
                 Text(
                     text = "Ranking: ${gameModel.rankingLatest}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.weight(1f)
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Gray,
+                    softWrap = true,
+                    modifier = Modifier
                 )
             }
         }

@@ -1,4 +1,4 @@
-package games_data.mappers
+package utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

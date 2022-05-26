@@ -12,6 +12,7 @@ data class GameRankingModel(
     val thumbnail: String = "",
     val type: GameType = GameType.GAME,
     val rankingLatest: String = "",
-    var rankingHistoryDates: Map<String, Int> = mapOf(),
-    var rankingCategories: Map<String, Int> = mapOf(),
+    var rankingHistoryDates: List<String> = listOf(),
+    var rankingHistoryPositions: List<String> = listOf(),
+    var rankingCategories: List<String> = listOf(),
 )

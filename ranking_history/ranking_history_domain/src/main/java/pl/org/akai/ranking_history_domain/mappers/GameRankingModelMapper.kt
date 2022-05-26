@@ -4,6 +4,7 @@ import data.local.entity.GameEntity
 import data.typeconverters.MapTypeConverter
 import pl.org.akai.ranking_history_domain.model.GameRankingModel
 import utils.GameType
+import utils.ListTypeConverter
 
 fun GameEntity.toGameRankingModel(): GameRankingModel {
     return GameRankingModel(
@@ -15,8 +16,9 @@ fun GameEntity.toGameRankingModel(): GameRankingModel {
         thumbnail = thumbnail,
         type = GameType.fromString(type),
         rankingLatest = rankingLatest,
-        rankingHistoryDates = MapTypeConverter.stringToMap(rankingHistoryDatesJson),
-        rankingCategories = MapTypeConverter.stringToMap(rankingCategoriesJson)
+        rankingHistoryDates = ListTypeConverter.stringtoList(rankingHistoryDatesJson),
+        rankingCategories = ListTypeConverter.stringtoList(rankingCategoriesJson),
+        rankingHistoryPositions = ListTypeConverter.stringtoList(rankingHistoryPositionsJson)
     )
 }
 
@@ -31,7 +33,8 @@ fun GameRankingModel.toGameEntity() : GameEntity {
         thumbnail = thumbnail,
         type = GameType.toString(type),
         rankingLatest = rankingLatest,
-        rankingHistoryDatesJson = MapTypeConverter.mapToString(rankingHistoryDates),
-        rankingCategoriesJson = MapTypeConverter.mapToString(rankingCategories)
+        rankingHistoryDatesJson = ListTypeConverter.listToString(rankingHistoryDates),
+        rankingCategoriesJson = ListTypeConverter.listToString(rankingCategories),
+        rankingHistoryPositionsJson = ListTypeConverter.listToString(rankingHistoryPositions)
     )
 }

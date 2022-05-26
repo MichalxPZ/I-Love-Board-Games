@@ -14,6 +14,7 @@ data class GameEntity (
     var thumbnail: String,
     var type: String,
     var rankingHistoryDatesJson: String,
+    var rankingHistoryPositionsJson: String,
     var rankingCategoriesJson: String,
     var rankingLatest: String
 )
