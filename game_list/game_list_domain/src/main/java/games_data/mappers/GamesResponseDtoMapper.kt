@@ -14,7 +14,7 @@ fun GameItemResponseDto.toGameModel(): GameModel {
         imageUrl = image ?: "",
         thumbnail = thumbnail ?: "",
         type = GameType.fromString(subtype ?: GameType.toString(GameType.GAME)),
-        rankingLatest = stats?.rating?.ranks?.filter { it.category == "boardgame" }?.get(0)?.pos ?: "Not Ranked"
+        rankingLatest = stats?.rating?.value ?: "Not Ranked"
     )
 }
 
@@ -27,7 +27,7 @@ fun GameItemResponseDto.toGameEntity(): GameEntity {
         imageUrl = image ?: "",
         thumbnail = thumbnail ?: "",
         type = subtype ?: "",
-        rankingLatest = stats?.rating?.ranks?.filter { it.category == "boardgame" }?.get(0)?.pos ?: "Not Ranked",
+        rankingLatest = stats?.rating?.value ?: "Not Ranked",
         rankingCategoriesJson = ListTypeConverter.listToString(stats?.rating?.ranks?.map { it.category ?: "error" }),
         rankingHistoryDatesJson = ListTypeConverter.listToString(listOf())
     )
