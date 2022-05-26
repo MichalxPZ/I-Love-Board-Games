@@ -20,8 +20,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import data.local.GamesDao
 import data.preferences.Preferences
-import pl.org.akai.iloveboardgames.navigation.Routes
+import kotlinx.coroutines.launch
+import navigation.Routes
 import pl.org.akai.game_list_presentation.game_list_screen.GamesScreen
 import pl.org.akai.iloveboardgames.components.bottom_bar.BgTabRow
 import pl.org.akai.iloveboardgames.ui.theme.ILoveBoardGamesTheme
@@ -51,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val startDestination = if (shouldShowOnboarding) Routes.ONBOARDING else Routes.GAME_SCREEN
+                    val startDestination = if (shouldShowOnboarding) Routes.ONBOARDING else Routes.PROFILE
                     val scope = rememberCoroutineScope()
                     val backstackEntry = navController.currentBackStackEntryAsState()
 
@@ -62,24 +64,34 @@ class MainActivity : ComponentActivity() {
                             composable(Routes.ONBOARDING) {
                                 OnboardingScreen(
                                     onButtonClick = {
-                                        navController.navigate(Routes.GAME_SCREEN)
+                                        navController.navigate(Routes.PROFILE)
                                     }
                                 )
                             }
 
                             composable(Routes.PROFILE) {
-                                ProfileScreen()
+                                ProfileScreen(
+                                    onProfileClick = { navController.navigate(Routes.ONBOARDING) }
+                                )
                             }
 
                             composable(Routes.GAME_SCREEN) {
-                                GamesScreen()
+                                fun navigateToRoute(route: String) = navController.navigate(route)
+                                GamesScreen(
+                                    navigateToRoute = { navigateToRoute(it) }
+                                )
                             }
 
                             composable(
                                 route ="${Routes.RANKING_HISTORY}/{gameId}",
-                                arguments = listOf(navArgument("gameId") { type = NavType.StringType })
+                                arguments = listOf(
+                                    navArgument("gameId") { type = NavType.StringType },
+                                    )
                             ) { backStackEntry ->
-                                RankingHistoryScreen(backStackEntry.arguments?.getString("gameId"))
+                                RankingHistoryScreen(
+                                    gameId = backStackEntry.arguments?.getString("gameId")?.toInt() ?: 0,
+                                    onBackArrowPressed = { navController.popBackStack() }
+                                )
                             }
 
                             composable(Routes.SYNCHORNIZATION) {

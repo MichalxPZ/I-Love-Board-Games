@@ -5,4 +5,7 @@
     <string name="whats_your_name">What\'s your name?</string>
     <string name="Your_Games">Your Games</string>
     <string name="Your_Extensions">Your Extensions</string>
+    <string name="Games_count">Games</string>
+    <string name="Extensions_count">Extensions</string>
+    <string name="Last_synchronized">Last synchronized:</string>
 </resources>

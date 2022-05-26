@@ -31,7 +31,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
-import pl.org.akai.iloveboardgames.navigation.Routes
+import navigation.Routes
 import java.util.*
 
 
@@ -43,7 +43,7 @@ fun BgTabRow(
     modifier: Modifier= Modifier
 ) {
 
-    AnimatedVisibility(visible = currentRoute != Routes.ONBOARDING && currentRoute != Routes.RANKING_HISTORY) {
+    AnimatedVisibility(visible = currentRoute != Routes.ONBOARDING && !currentRoute.contains(Routes.RANKING_HISTORY)) {
         Surface(
             modifier = modifier
                 .fillMaxWidth()

@@ -5,5 +5,8 @@ import pl.org.akai.game_list_domain.model.GameModel
 import utils.Resource
 
 interface GameRepository {
-    suspend fun getGamesAndExtensions(): Flow<Resource<List<GameModel>>>
+    suspend fun getGames(
+        fetchFromRemote: Boolean,
+        query: String,
+    ): Flow<Resource<List<GameModel>>>
 }

@@ -102,6 +102,7 @@ dependencies {
     implementation(pl.org.akai.buildsrc.Retrofit.okHttpLoggingInterceptor)
     implementation(pl.org.akai.buildsrc.Retrofit.moshiConverter)
     implementation(pl.org.akai.buildsrc.XmlConverter.simpleXmlConverter)
+    implementation(pl.org.akai.buildsrc.Retrofit.gson)
 
     kapt(pl.org.akai.buildsrc.Room.roomCompiler)
     implementation(pl.org.akai.buildsrc.Room.roomKtx)

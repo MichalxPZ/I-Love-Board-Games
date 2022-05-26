@@ -1,6 +1,7 @@
 package pl.org.akai.game_list_domain.model
 
-import java.time.LocalDate
+import utils.GameType
+
 
 data class GameModel(
     val id: Int,
@@ -10,7 +11,5 @@ data class GameModel(
     val imageUrl: String,
     val thumbnail: String,
     val type: GameType,
-    val rankingHistory: HashMap<LocalDate, Int>,
-    val rankingCategories: HashMap<String, Int>,
     val rankingLatest: String
 )

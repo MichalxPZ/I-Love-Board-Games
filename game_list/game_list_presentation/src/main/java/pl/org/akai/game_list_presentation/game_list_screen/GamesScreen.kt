@@ -1,10 +1,9 @@
 package pl.org.akai.game_list_presentation.game_list_screen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,12 +14,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
 import com.poznan.put.michalxpz.core_ui.util.UiText
 import pl.org.akai.game_list_presentation.game_list_screen.components.GameItemEntry
 import com.poznan.put.michalxpz.core.R
+import com.poznan.put.michalxpz.core_ui.util.UiEvent
+import navigation.Routes
+import pl.org.akai.game_list_domain.model.GameModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -28,9 +32,25 @@ import com.poznan.put.michalxpz.core.R
 fun GamesScreen(
     modifier: Modifier = Modifier,
     viewModel: GameListScreenViewModel = hiltViewModel(),
+    navigateToRoute: (String) -> Unit
 ) {
     val state = viewModel.state
     val spacing = LocalSpacing.current
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when(uiEvent) {
+                is UiEvent.Navigate -> {
+                    navigateToRoute(uiEvent.route)
+                }
+                is UiEvent.ShowErrorSnackbar -> {
+                    Toast.makeText(context, uiEvent.messageError, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
 
     Column(
         modifier = modifier
@@ -66,7 +86,7 @@ fun GamesScreen(
                         .clip(RoundedCornerShape(15.dp))
                         .border(
                             BorderStroke(4.dp, MaterialTheme.colorScheme.secondary),
-                            RoundedCornerShape(15.dp)
+                            RoundedCornerShape(18.dp)
                         ),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
@@ -80,8 +100,14 @@ fun GamesScreen(
                         )
                     }
                     items(state.games) { game ->
-                        GameItemEntry(gameModel = game)
-
+                        GameItemEntry(
+                            gameModel = game,
+                            modifier = Modifier.clickable  {
+                                viewModel.onEvent(GameListScreenEvent.OnGameClicked(
+                                    route = "${Routes.RANKING_HISTORY}/${game.id}"
+                                ))
+                            }
+                        )
                         Divider(modifier = Modifier,
                             color = MaterialTheme.colorScheme.background,
                             thickness = 4.dp)
@@ -95,7 +121,9 @@ fun GamesScreen(
                 }
 
                 Spacer(modifier = Modifier.height(spacing.small))
-                Spacer(modifier = Modifier.height(1.dp).background(MaterialTheme.colorScheme.tertiary))
+                Spacer(modifier = Modifier
+                    .height(1.dp)
+                    .background(MaterialTheme.colorScheme.tertiary))
                 Spacer(modifier = Modifier.height(spacing.small))
 
                 LazyColumn(
@@ -104,7 +132,7 @@ fun GamesScreen(
                         .clip(RoundedCornerShape(15.dp))
                         .border(
                             BorderStroke(4.dp, MaterialTheme.colorScheme.secondary),
-                            RoundedCornerShape(15.dp)
+                            RoundedCornerShape(18.dp)
                         ),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -118,7 +146,14 @@ fun GamesScreen(
                         )
                     }
                     items(state.extensions) { extension ->
-                        GameItemEntry(gameModel = extension)
+                        GameItemEntry(
+                            gameModel = extension,
+                            modifier = Modifier.clickable {
+                                viewModel.onEvent(GameListScreenEvent.OnGameClicked(
+                                    route = "${Routes.RANKING_HISTORY}/${extension.id}"
+                                ))
+                            }
+                        )
                         Divider(modifier = Modifier,
                             color = MaterialTheme.colorScheme.background,
                             thickness = 4.dp)

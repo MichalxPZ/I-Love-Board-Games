@@ -18,24 +18,28 @@ import coil.request.ImageRequest
 import pl.org.akai.game_list_domain.model.GameModel
 import com.poznan.put.michalxpz.core.R
 import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
-import pl.org.akai.game_list_domain.model.GameType
+import utils.GameType
 
 @Composable
 fun GameItemEntry(
-    gameModel: GameModel
+    gameModel: GameModel,
+    modifier: Modifier = Modifier,
 ) {
 
     val spacing = LocalSpacing.current
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth().padding(spacing.extraSmall)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(spacing.extraSmall)
     ) {
         
         Text(
             text = gameModel.id.toString(),
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.align(Alignment.CenterVertically).weight(0.4f)
+            modifier = Modifier.align(Alignment.CenterVertically).weight(0.4f),
+            maxLines = 1
         )
 
         Spacer(modifier = Modifier.width(spacing.mediumSmall))

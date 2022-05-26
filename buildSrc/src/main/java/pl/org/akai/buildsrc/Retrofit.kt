@@ -8,4 +8,8 @@ object Retrofit {
     private const val okHttpVersion = "5.0.0-alpha.2"
     const val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
     const val okHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    private const val gsonVersion = "2.9.0"
+    const val gson = "com.google.code.gson:gson:$gsonVersion"
+
 }
