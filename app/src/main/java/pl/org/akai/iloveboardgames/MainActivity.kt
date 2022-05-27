@@ -95,7 +95,9 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable(Routes.SYNCHORNIZATION) {
-                                SynchronizationScreen()
+                                SynchronizationScreen(
+                                    navigateToRoute = { navController.navigate(Routes.PROFILE) }
+                                )
                             }
 
                         }

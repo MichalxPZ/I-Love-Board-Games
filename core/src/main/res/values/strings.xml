@@ -8,4 +8,10 @@
     <string name="Games_count">Games</string>
     <string name="Extensions_count">Extensions</string>
     <string name="Last_synchronized">Last synchronized:</string>
+    <string name="Clear_data">Clear data</string>
+    <string name="Info_desc">Last Synchronization was less then 24h ago.\nDo you want to proceed?</string>
+    <string name="Sort_by">Sort by</string>
+    <string name="Alphabetical">Alphabetical</string>
+    <string name="Ranking">Ranking</string>
+    <string name="Year">Year</string>
 </resources>

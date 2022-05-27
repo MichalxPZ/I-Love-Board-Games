@@ -1,7 +1,7 @@
-package games_data.mappers
+package mappers
 
 import data.local.entity.GameEntity
-import pl.org.akai.game_list_domain.model.GameModel
+import model.GameModel
 import utils.GameType
 
 fun GameEntity.toGameModel(): GameModel {

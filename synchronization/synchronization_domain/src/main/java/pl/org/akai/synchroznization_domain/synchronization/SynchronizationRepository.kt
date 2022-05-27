@@ -7,4 +7,5 @@ import utils.Resource
 interface SynchronizationRepository {
 
     suspend fun synchronize(): Flow<Resource<List<GameItemResponseDto>>>
+    suspend fun wipeOut()
 }

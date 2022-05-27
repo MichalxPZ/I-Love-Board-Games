@@ -15,14 +15,18 @@ interface GamesDao {
         """
             UPDATE gameentity
             SET
-            rankingHistoryDatesJson = :ranking
+            rankingHistoryDatesJson = :rankingDates,
+            rankingHistoryPositionsJson = :rankingPositions,
+            rankingLatest = :rankingLatest
             WHERE
             id = :gameEntityId
         """
     )
     suspend fun updateGameRankings(
         gameEntityId: Int,
-        ranking: String
+        rankingDates: String,
+        rankingPositions: String,
+        rankingLatest: String
     )
 
     @Query("DELETE FROM gameentity")

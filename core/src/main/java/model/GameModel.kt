@@ -1,4 +1,4 @@
-package pl.org.akai.game_list_domain.model
+package model
 
 import utils.GameType
 

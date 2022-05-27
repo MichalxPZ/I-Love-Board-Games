@@ -1,7 +1,5 @@
 package pl.org.akai.game_list_presentation.game_list_screen
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -17,14 +15,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
 import com.poznan.put.michalxpz.core_ui.util.UiText
 import pl.org.akai.game_list_presentation.game_list_screen.components.GameItemEntry
 import com.poznan.put.michalxpz.core.R
 import com.poznan.put.michalxpz.core_ui.util.UiEvent
+import com.poznan.put.michalxpz.core_ui.util.dialogs.Dialog
 import navigation.Routes
-import pl.org.akai.game_list_domain.model.GameModel
+import pl.org.akai.game_list_presentation.game_list_screen.components.ExpandableButton
+import utils.DialogType
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -44,9 +43,14 @@ fun GamesScreen(
                 is UiEvent.Navigate -> {
                     navigateToRoute(uiEvent.route)
                 }
-                is UiEvent.ShowErrorSnackbar -> {
-                    Toast.makeText(context, uiEvent.messageError, Toast.LENGTH_LONG)
-                        .show()
+                is UiEvent.ShowErrorDialog -> {
+                    viewModel.onEvent(GameListScreenEvent.OnShowDialog(uiEvent.messageError, DialogType.ERROR))
+                }
+                is UiEvent.ShowInfoDialog -> {
+                    viewModel.onEvent(GameListScreenEvent.OnShowDialog(uiEvent.messageError, DialogType.INFO))
+                }
+                is UiEvent.ShowSuccessDialog -> {
+                    viewModel.onEvent(GameListScreenEvent.OnShowDialog(uiEvent.messageError, DialogType.SUCCESS))
                 }
             }
         }
@@ -73,16 +77,36 @@ fun GamesScreen(
         )
         Spacer(modifier = Modifier.height(spacing.mediumSmall))
 
-        AnimatedVisibility(visible = !state.isLoading) {
+        AnimatedVisibility(visible = state.showErrorDialog) {
+            Dialog(
+                title = state.dialogTitle,
+                desc =state.dialogDesc,
+                onDismiss = { viewModel.onEvent(GameListScreenEvent.OnDismissDialog) },
+                onAccept = { viewModel.onEvent(GameListScreenEvent.OnDismissDialog) },
+                resId = state.dialogImgId
+            )
+        }
+
+        AnimatedVisibility(visible = !state.isLoading && !state.showErrorDialog) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
 
+                ExpandableButton(
+                    options = state.sortOptions ,
+                    isExpanded = state.sortButtonExpanded,
+                    onExpandableButtonClick = { viewModel.onEvent(GameListScreenEvent.OnSortButtonClick)},
+                    optionsCallbacks = state.sortOptions.map { { viewModel.onEvent(GameListScreenEvent.OnSortGames(it.sortType)) } },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(spacing.extraSmall))
+
                 LazyColumn(
                     modifier = Modifier
-                        .height(270.dp)
+                        .height(250.dp)
                         .clip(RoundedCornerShape(15.dp))
                         .border(
                             BorderStroke(4.dp, MaterialTheme.colorScheme.secondary),
@@ -99,6 +123,7 @@ fun GamesScreen(
                                 .padding(spacing.small)
                         )
                     }
+
                     items(state.games) { game ->
                         GameItemEntry(
                             gameModel = game,
@@ -128,7 +153,7 @@ fun GamesScreen(
 
                 LazyColumn(
                     modifier = Modifier
-                        .height(270.dp)
+                        .height(250.dp)
                         .clip(RoundedCornerShape(15.dp))
                         .border(
                             BorderStroke(4.dp, MaterialTheme.colorScheme.secondary),
@@ -147,12 +172,7 @@ fun GamesScreen(
                     }
                     items(state.extensions) { extension ->
                         GameItemEntry(
-                            gameModel = extension,
-                            modifier = Modifier.clickable {
-                                viewModel.onEvent(GameListScreenEvent.OnGameClicked(
-                                    route = "${Routes.RANKING_HISTORY}/${extension.id}"
-                                ))
-                            }
+                            gameModel = extension
                         )
                         Divider(modifier = Modifier,
                             color = MaterialTheme.colorScheme.background,
@@ -168,7 +188,7 @@ fun GamesScreen(
             }
         }
 
-        AnimatedVisibility(visible = state.isLoading) {
+        AnimatedVisibility(visible = state.isLoading && !state.showErrorDialog) {
             CircularProgressIndicator()
         }
     }

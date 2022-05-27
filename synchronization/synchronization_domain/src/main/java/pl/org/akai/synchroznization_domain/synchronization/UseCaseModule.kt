@@ -17,4 +17,12 @@ object UseCaseModule {
     ): SynchronizeUseCase {
         return SynchronizeUseCase(repository)
     }
+
+    @Provides
+    @ViewModelScoped
+    fun provideWipeOutUseCase(
+        repository: SynchronizationRepository
+    ): WipeOutUseCase {
+        return WipeOutUseCase(repository)
+    }
 }

@@ -5,11 +5,11 @@ import data.local.GamesDataBase
 import data.preferences.Preferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import games_data.mappers.toGameModel
+import mappers.toGameModel
 import data.remote.Api
 import data.remote.data.GameItemResponseDto
-import games_data.mappers.toGameEntity
-import pl.org.akai.game_list_domain.model.GameModel
+import mappers.toGameEntity
+import model.GameModel
 import pl.org.akai.game_list_domain.repository.GameRepository
 import retrofit2.HttpException
 import utils.GameType

@@ -1,8 +1,7 @@
 package pl.org.akai.game_list_domain.use_case
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.forEach
-import pl.org.akai.game_list_domain.model.GameModel
+import model.GameModel
 import pl.org.akai.game_list_domain.repository.GameRepository
 import utils.Resource
 

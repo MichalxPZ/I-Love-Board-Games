@@ -19,4 +19,7 @@ object Compose {
 
     private const val lifecycleVersion = "2.4.0"
     const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+
+    private const val lottieVersion = "4.2.0"
+    const val lottieCompose = "com.airbnb.android:lottie-compose:$lottieVersion"
 }

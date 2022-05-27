@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import pl.org.akai.game_list_domain.model.GameModel
+import model.GameModel
 import com.poznan.put.michalxpz.core.R
 import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
 import utils.GameType

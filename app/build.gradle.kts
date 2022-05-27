@@ -63,6 +63,7 @@ dependencies {
     implementation(Compose.navigation)
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
+    implementation(Compose.lottieCompose)
 
     implementation(pl.org.akai.buildsrc.Serialization.serialization)
 

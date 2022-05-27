@@ -1,8 +1,8 @@
-package games_data.mappers
+package mappers
 
 import data.local.entity.GameEntity
 import data.remote.data.GameItemResponseDto
-import pl.org.akai.game_list_domain.model.GameModel
+import model.GameModel
 import utils.DateFormater
 import utils.GameType
 import utils.ListTypeConverter

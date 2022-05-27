@@ -1,10 +1,8 @@
 package data.preferences
 
 import android.content.SharedPreferences
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class DefaulPreferences(
     private val sharedPref: SharedPreferences,
