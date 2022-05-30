@@ -26,7 +26,8 @@ fun ExpandableButton(
     optionsCallbacks: List<() -> Unit>,
     isExpanded: Boolean,
     modifier: Modifier = Modifier,
-    onExpandableButtonClick: () -> Unit
+    onExpandableButtonClick: () -> Unit,
+    sortType: SortType
 ) {
     val spacing = LocalSpacing.current
 
@@ -68,9 +69,23 @@ fun ExpandableButton(
                                     .get(index)
                                     .invoke()
                             }
+                            .background(
+                                if (sortType == option.sortType) {
+                                    MaterialTheme.colorScheme.tertiary
+                                } else MaterialTheme.colorScheme.onPrimary
+                            )
                     ) {
-                        Text(text = SortType.getString(option.sortType), modifier = Modifier.padding(start = spacing.extraLarge))
-                        Image(imageVector = SortType.getImage(option.sortType), contentDescription = "", modifier = Modifier.padding(end = spacing.extraLarge), colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary))
+                        Text(
+                            text = SortType.getString(option.sortType),
+                            modifier = Modifier.padding(start = spacing.extraLarge),
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.primary)
+                        )
+                        Image(
+                            imageVector = SortType.getImage(option.sortType),
+                            contentDescription = "",
+                            modifier = Modifier.padding(end = spacing.extraLarge),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                        )
                     }
                     Divider(modifier = Modifier,
                         thickness = 1.dp)

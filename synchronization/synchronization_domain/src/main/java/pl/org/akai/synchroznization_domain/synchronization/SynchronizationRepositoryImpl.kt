@@ -68,46 +68,59 @@ class SynchronizationRepositoryImpl(
 
                 if (localGames.isNotEmpty()) {
 
+                    val localGamesMatchedById = localGames.filter { it.id.toString() == game.id }
 
-                    val rankingPositionsListString =
-                        localGames.filter { it.id.toString() == game.id }
-                            .get(0).rankingHistoryPositionsJson
+                    if (localGamesMatchedById.isEmpty()) {
+                        dao.insertGame(listOf(game.toGameEntity()))
+                    } else {
 
-                    val rankingPositions = ListTypeConverter
-                        .stringtoList(rankingPositionsListString)
-                        .toMutableList()
+                        val rankingPositionsListString =
+                            localGamesMatchedById
+                                .get(0).rankingHistoryPositionsJson
 
-                    rankingPositions.add(game.stats?.rating?.ranks?.filter { it.category == "boardgame" }
-                        ?.get(0)?.value ?: "Not Ranked")
+                        val rankingPositions = ListTypeConverter
+                            .stringtoList(rankingPositionsListString)
+                            .toMutableList()
 
-                    val rankingPositionsToString = ListTypeConverter.listToString(rankingPositions)
+                        rankingPositions.add(game.stats?.rating?.ranks?.filter { it.category == "boardgame" }
+                            ?.get(0)?.value ?: "Not Ranked")
 
-                    val rankingDatesListString = localGames.filter { it.id.toString() == game.id }
-                        .get(0).rankingHistoryDatesJson
-                    val rankingDates = ListTypeConverter
-                        .stringtoList(rankingDatesListString).toMutableList()
+                        val rankingPositionsToString =
+                            ListTypeConverter.listToString(rankingPositions)
 
-                    rankingDates.add(DateFormater.dateToString(LocalDate.now()) ?: "1000-01-01")
+                        val rankingDatesListString = localGamesMatchedById
+                            .get(0).rankingHistoryDatesJson
+                        val rankingDates = ListTypeConverter
+                            .stringtoList(rankingDatesListString).toMutableList()
 
-                    Log.i("LOCAL",
-                        "${game.id}, Pos: $rankingPositionsListString, Dates: $rankingDatesListString")
+                        rankingDates.add(DateFormater.dateToString(LocalDate.now()) ?: "1000-01-01")
 
-                    val rankingDatesToString = ListTypeConverter.listToString(rankingDates)
+                        Log.i("LOCAL",
+                            "${game.id}, Pos: $rankingPositionsListString, Dates: $rankingDatesListString")
+
+                        val rankingDatesToString = ListTypeConverter.listToString(rankingDates)
 
 
-                    val rankingLatest =
-                        game.stats?.rating?.ranks?.filter { it.category == "boardgame" }
-                            ?.get(0)?.value ?: "Not Ranked"
-                    Log.i("UPDATE",
-                        "${game.id}, Pos: $rankingPositionsToString, Dates: $rankingDatesToString")
-                    dao.updateGameRankings(
-                        gameEntityId = game.id?.toIntOrNull() ?: 0,
-                        rankingPositions = rankingPositionsToString,
-                        rankingDates = rankingDatesToString,
-                        rankingLatest = rankingLatest
-                    )
+                        val rankingLatest =
+                            game.stats?.rating?.ranks?.filter { it.category == "boardgame" }
+                                ?.get(0)?.value ?: "Not Ranked"
+                        Log.i("UPDATE",
+                            "${game.id}, Pos: $rankingPositionsToString, Dates: $rankingDatesToString")
+                        dao.updateGameRankings(
+                            gameEntityId = game.id?.toIntOrNull() ?: 0,
+                            rankingPositions = rankingPositionsToString,
+                            rankingDates = rankingDatesToString,
+                            rankingLatest = rankingLatest
+                        )
+                    }
                 } else {
                     dao.insertGame( listOf(game.toGameEntity()) )
+                }
+            }
+
+            localGames.map { it.id }.forEach {
+                if(!(remoteGames.map { it.id }.contains(it.toString()))) {
+                    dao.deleteGame(it)
                 }
             }
 

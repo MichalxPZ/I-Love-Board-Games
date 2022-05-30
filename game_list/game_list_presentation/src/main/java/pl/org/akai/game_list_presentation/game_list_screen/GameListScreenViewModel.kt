@@ -80,10 +80,10 @@ class GameListScreenViewModel @Inject constructor(
                         state.copy(games = state.games.sortedBy { it.title }.reversed(), extensions = state.extensions.sortedBy { it.title }.reversed())
                     }
                     SortType.YEAR_ASC -> {
-                        state.copy(games = state.games.sortedBy { it.year }, extensions = state.extensions.sortedBy { it.year })
+                        state.copy(games = state.games.sortedBy { it.year }.sortedBy { it.title }, extensions = state.extensions.sortedBy { it.year }.sortedBy { it.title })
                     }
                     SortType.YEAR_DESC -> {
-                        state.copy(games = state.games.sortedBy { it.year }.reversed(), extensions = state.extensions.sortedBy { it.year }.reversed())
+                        state.copy(games = state.games.sortedBy { it.year }.sortedBy { it.title }.reversed(), extensions = state.extensions.sortedBy { it.year }.sortedBy { it.title }.reversed())
                     }
                     SortType.RANKING_ASC -> {
                         state.copy(games = state.games.sortedBy { it.rankingLatest.toIntOrNull() }, extensions = state.extensions.sortedBy { it.rankingLatest.toIntOrNull() })

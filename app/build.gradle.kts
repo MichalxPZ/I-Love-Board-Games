@@ -95,6 +95,8 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
+    implementation(AndroidX.startup)
+    implementation(AndroidX.splashscreen)
 
     implementation(pl.org.akai.buildsrc.Coil.coilCompose)
 

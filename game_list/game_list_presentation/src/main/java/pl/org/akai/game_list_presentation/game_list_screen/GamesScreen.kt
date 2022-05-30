@@ -99,7 +99,8 @@ fun GamesScreen(
                     isExpanded = state.sortButtonExpanded,
                     onExpandableButtonClick = { viewModel.onEvent(GameListScreenEvent.OnSortButtonClick)},
                     optionsCallbacks = state.sortOptions.map { { viewModel.onEvent(GameListScreenEvent.OnSortGames(it.sortType)) } },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    sortType = state.sortType
                 )
 
                 Spacer(modifier = Modifier.height(spacing.extraSmall))

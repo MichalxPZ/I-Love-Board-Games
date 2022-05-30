@@ -19,6 +19,7 @@ import pl.org.akai.synchroznization_domain.synchronization.SynchronizeUseCase
 import pl.org.akai.synchroznization_domain.synchronization.WipeOutUseCase
 import utils.DialogType
 import utils.Resource
+import java.lang.Math.abs
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
@@ -49,7 +50,6 @@ class SynchronizationScreenViewModel @Inject constructor(
                 state = state.copy(lastSychronized = lastSynchDate)
             }
         }
-        state = state.copy(lastSychronized = preferences.loadLastSynchDate() ?: LocalDate.now())
     }
 
     fun onEvent(event: SynchronizationScreenEvent) {
@@ -82,7 +82,7 @@ class SynchronizationScreenViewModel @Inject constructor(
             SynchronizationScreenEvent.OnClearDataClicked -> {
                 viewModelScope.launch {
                     wipeOut()
-                    preferences.saveShouldShowOnboarding(true)
+                    preferences.saveShouldShowOnboarding(false)
                     preferences.saveLastSynchDate(LocalDate.MIN)
                 }
             }
@@ -110,8 +110,10 @@ class SynchronizationScreenViewModel @Inject constructor(
     }
 
     private fun handleShowingSynchRequestDialog() {
-        if (ChronoUnit.DAYS.between(LocalDate.now(), preferences.loadLastSynchDate()) < 1) {
+        if (abs(ChronoUnit.DAYS.between(LocalDate.now(), preferences.loadLastSynchDate())) < 1) {
             state = state.copy(dialogTitle = "Info", dialogDesc = "Last Synchronization was less then 24h ago.\nDo you want to proceed?", dialogImgId = R.raw.info, showDialog = true, dialogType = DialogType.INFO)
+        } else {
+            synchronizeDbWithApi()
         }
     }
 }
