@@ -14,7 +14,7 @@ It displays some data about provided user's board games and extensions stored at
 
 ## How to run
 <a name="run"></a>
-(Download)[https://github.com/MichalxPZ/I-Love-Board-Games/releases/tag/V1.0.0] release via github -> see releases page on right side of the screen
+[Download](https://github.com/MichalxPZ/I-Love-Board-Games/releases/tag/V1.0.0) release via github -> see releases page on right side of the screen
 
 ## Stack
 <a name="stack"></a>
