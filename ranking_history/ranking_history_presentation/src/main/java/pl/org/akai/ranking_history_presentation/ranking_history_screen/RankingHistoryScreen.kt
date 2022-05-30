@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,16 +15,25 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.poznan.put.michalxpz.core_ui.util.LocalSpacing
 import com.poznan.put.michalxpz.core_ui.util.UiText
 import com.poznan.put.michalxpz.core.R
+import me.bytebeats.views.charts.line.LineChart
+import me.bytebeats.views.charts.line.LineChartData
+import me.bytebeats.views.charts.line.render.line.SolidLineDrawer
+import me.bytebeats.views.charts.line.render.point.FilledCircularPointDrawer
+import me.bytebeats.views.charts.line.render.xaxis.SimpleXAxisDrawer
+import me.bytebeats.views.charts.line.render.yaxis.SimpleYAxisDrawer
+import me.bytebeats.views.charts.simpleChartAnimation
 import pl.org.akai.ranking_history_presentation.ranking_history_screen.components.CollapsableToolbar
 import pl.org.akai.ranking_history_presentation.ranking_history_screen.components.GraphView
 import utils.DateFormater
 import java.time.LocalDate
+import kotlin.random.Random
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -34,10 +44,6 @@ fun RankingHistoryScreen(
 ) {
     val spacing = LocalSpacing.current
     val state = viewModel.state
-
-    var progress by remember {
-        mutableStateOf(0f)
-    }
 
     LaunchedEffect(key1 = viewModel) {
         viewModel.onEvent(RankingScreenEvent.OnInitGetGameFromDb(gameId))
@@ -81,9 +87,9 @@ fun RankingHistoryScreen(
                     text = "Year: ${viewModel.state.gameRankingModel.year}",
                     style = MaterialTheme.typography.headlineMedium
                 )
-                
+
                 Spacer(modifier = Modifier.height(spacing.mediumSmall))
-                
+
                 Text(
                     text = "Ranking Position: ${viewModel.state.gameRankingModel.rankingLatest}",
                     style = MaterialTheme.typography.headlineMedium
@@ -97,11 +103,12 @@ fun RankingHistoryScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     items(viewModel.state.gameRankingModel.rankingCategories) { item ->
-                        Card(modifier = Modifier
-                            .padding(spacing.small)
-                            .width(150.dp)
-                            .height(40.dp)
-                            .background(MaterialTheme.colorScheme.surface),
+                        Card(
+                            modifier = Modifier
+                                .padding(spacing.small)
+                                .width(150.dp)
+                                .height(40.dp)
+                                .background(MaterialTheme.colorScheme.surface),
                             elevation = CardDefaults.cardElevation(4.dp),
                         ) {
                             Box(
@@ -120,25 +127,7 @@ fun RankingHistoryScreen(
                     }
                 }
 
-                val xAxis = viewModel.state.gameRankingModel.rankingHistoryDates.map { DateFormater.stringToDate(it) ?: LocalDate.MIN }
-                val yAxis = viewModel.state.gameRankingModel.rankingHistoryPositions.map {
-                    (it.toIntOrNull() ?: 0) * 100
-                }
-
                 Spacer(modifier = Modifier.height(spacing.mediumLarge))
-
-
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .height(400.dp),
-//                    contentAlignment = Alignment.Center
-//                ) {
-//                    GraphView(
-//                        xAxis = xAxis,
-//                        yAxis = yAxis
-//                    )
-//                }
 
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
@@ -163,14 +152,15 @@ fun RankingHistoryScreen(
                             )
                         }
                     }
-                    itemsIndexed(viewModel.state.gameRankingModel.rankingHistoryPositions.reversed()) { index, position ->
+                    itemsIndexed(state.gameRankingModel.rankingHistoryPositions.reversed()) { index, position ->
                         Row(modifier = Modifier
                             .fillMaxWidth()
                             .padding(spacing.extraSmall),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
                             Text(
-                                text = viewModel.state.gameRankingModel.rankingHistoryDates.reversed().get(index),
+                                text = state.gameRankingModel.rankingHistoryDates.reversed()
+                                    .get(index),
                                 style = MaterialTheme.typography.headlineSmall
                             )
                             Spacer(modifier = Modifier.width(spacing.mediumSmall))
@@ -180,6 +170,37 @@ fun RankingHistoryScreen(
                                 style = MaterialTheme.typography.headlineSmall
                             )
                         }
+                    }
+                }
+
+                val lineData =
+                    state.gameRankingModel.rankingHistoryPositions.mapIndexed { index, s ->
+                        LineChartData.Point((s.toFloatOrNull() ?: 10000f) + Random.nextFloat()/100,
+                            viewModel.state.gameRankingModel.rankingHistoryDates[index]
+                        )
+                    }
+                Log.i("DATA", lineData.toString())
+                if (lineData.size > 1) {
+                    Box(
+                        modifier = Modifier
+                            .height(250.dp)
+                            .fillMaxSize()
+                            .padding(spacing.mediumSmall)
+                            .clip(RoundedCornerShape(15.dp))
+                            .background(MaterialTheme.colorScheme.secondary)
+                            .border(BorderStroke(4.dp, MaterialTheme.colorScheme.tertiary), RoundedCornerShape(15.dp))
+                    ) {
+                        LineChart(
+                            lineChartData = LineChartData(
+                                points = lineData),
+                            modifier = Modifier.fillMaxSize().padding(spacing.mediumLarge),
+                            animation = simpleChartAnimation(),
+                            pointDrawer = FilledCircularPointDrawer(),
+                            lineDrawer = SolidLineDrawer(),
+                            xAxisDrawer = SimpleXAxisDrawer(),
+                            yAxisDrawer = SimpleYAxisDrawer(),
+                            horizontalOffset = 5f
+                        )
                     }
                 }
             }

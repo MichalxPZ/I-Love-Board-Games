@@ -21,6 +21,7 @@ class RankingHistoryScreenViewModel @Inject constructor(
     var state by mutableStateOf( RankingHistoryState() )
         private set
 
+
     fun onEvent(event: RankingScreenEvent) {
         when(event) {
             is RankingScreenEvent.OnInitGetGameFromDb -> {

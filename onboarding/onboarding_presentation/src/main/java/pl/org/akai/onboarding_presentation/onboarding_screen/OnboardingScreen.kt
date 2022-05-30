@@ -49,7 +49,7 @@ fun OnboardingScreen(
             Image(
                 painter = painterResource(id = imageId),
                 contentDescription = "",
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
             )
 
             Spacer(modifier = Modifier.height(spacing.large))
@@ -57,7 +57,8 @@ fun OnboardingScreen(
             Text(
                 text = UiText.StringResource(R.string.onboarding_message).asString(),
                 style = MaterialTheme.typography.headlineMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onPrimary
             )
 
             Spacer(modifier = Modifier.height(spacing.mediumLarge))
@@ -69,7 +70,8 @@ fun OnboardingScreen(
                 singleLine = true,
                 colors= TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = MaterialTheme.colorScheme.tertiary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                    textColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 placeholder = {
                     Text(text = UiText.StringResource(R.string.whats_your_name).asString())

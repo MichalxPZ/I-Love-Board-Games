@@ -77,19 +77,14 @@ dependencies {
     implementation(project(Modules.onboardingDomain))
     implementation(project(Modules.onboardingPresentation))
 
-    implementation(project(Modules.profileScreenData))
-    implementation(project(Modules.profileScreenDomain))
     implementation(project(Modules.profileScreenPresentation))
 
-    implementation(project(Modules.gameListData))
     implementation(project(Modules.gameListDomain))
     implementation(project(Modules.gameListPresentation))
 
-    implementation(project(Modules.rankingHistoryData))
     implementation(project(Modules.rankingHistoryDomain))
     implementation(project(Modules.rankingHistoryPresentation))
 
-    implementation(project(Modules.synchronizationData))
     implementation(project(Modules.synchronizationDomain))
     implementation(project(Modules.synchronizationPresentation))
 

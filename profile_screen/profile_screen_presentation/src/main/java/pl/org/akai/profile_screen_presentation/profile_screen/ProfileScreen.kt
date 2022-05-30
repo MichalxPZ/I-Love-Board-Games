@@ -54,7 +54,11 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(spacing.small))
 
-            Text(text = state.userName, style = MaterialTheme.typography.headlineLarge)
+            Text(
+                text = state.userName,
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         }
 
 
@@ -72,12 +76,13 @@ fun ProfileScreen(
             ) {
                 Text(
                     text = state.gamesCount.toString(),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
                 Spacer(modifier = Modifier.height(spacing.extraSmall))
                 Text(
                     text = UiText.StringResource(R.string.Games_count).asString(),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f)
                 )
             }
@@ -86,17 +91,18 @@ fun ProfileScreen(
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
 
                 Text(
                     text = state.extensionsCount.toString(),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
                 Spacer(modifier = Modifier.height(spacing.extraSmall))
                 Text(
                     text = UiText.StringResource(R.string.Extensions_count).asString(),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f)
                 )
             }
